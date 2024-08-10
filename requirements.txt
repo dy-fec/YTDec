@@ -1,0 +1,6 @@
+opencv-python-headless
+numpy
+Flask
+flask-cors
+yt-dlp
+pycryptodome

@@ -1,0 +1,111 @@
+javascript:(function () {
+  var modal = document.createElement('div');
+  modal.style.position = 'fixed';
+  modal.style.top = '50%';
+  modal.style.left = '50%';
+  modal.style.transform = 'translate(-50%, -50%)';
+  modal.style.backgroundColor = '#FFFFFF';
+  modal.style.padding = '20px';
+  modal.style.boxShadow = '0 0 15px rgba(0, 0, 0, 0.3)';
+  modal.style.zIndex = '10000';
+  modal.style.borderRadius = '10px';
+  modal.style.width = '300px';
+  modal.style.fontFamily = 'Arial, sans-serif';
+  modal.style.textAlign = 'center';
+  var title = document.createElement('h2');
+  title.innerText = 'Decrypt Video';
+  title.style.marginBottom = '20px';
+  title.style.color = '#333';
+  var fileInputLabel = document.createElement('label');
+  fileInputLabel.innerText = 'Upload key.bin (optional):';
+  fileInputLabel.style.display = 'block';
+  fileInputLabel.style.marginBottom = '10px';
+  fileInputLabel.style.fontSize = '14px';
+  fileInputLabel.style.color = '#555';
+  var fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.style.display = 'block';
+  fileInput.style.margin = '0 auto 20px';
+  fileInput.style.width = '80%';
+  var button = document.createElement('button');
+  button.innerText = 'Decrypt';
+  button.style.display = 'block';
+  button.style.margin = '0 auto 20px';
+  button.style.padding = '10px 20px';
+  button.style.backgroundColor = '#007BFF';
+  button.style.color = '#FFFFFF';
+  button.style.border = 'none';
+  button.style.cursor = 'pointer';
+  button.style.fontSize = '16px';
+  button.style.borderRadius = '5px';
+  button.style.width = '80%';
+  var statusBar = document.createElement('div');
+  statusBar.innerText = 'Status: Ready';
+  statusBar.style.display = 'block';
+  statusBar.style.marginTop = '10px';
+  statusBar.style.padding = '10px';
+  statusBar.style.fontSize = '14px';
+  statusBar.style.color = '#333';
+  statusBar.style.backgroundColor = '#F7F7F7';
+  statusBar.style.borderRadius = '5px';
+  statusBar.style.width = '80%';
+  statusBar.style.margin = '0 auto';
+  modal.appendChild(title);
+  modal.appendChild(fileInputLabel);
+  modal.appendChild(fileInput);
+  modal.appendChild(button);
+  modal.appendChild(statusBar);
+  var body = document.getElementsByTagName('body')[0];
+  if (body) {
+    body.appendChild(modal);
+  } else {
+    alert('No body element found on this page.');
+    return;
+  }
+  button.onclick = async function () {
+    try {
+      var videoUrl = window.location.href;
+      if (!videoUrl.includes('youtube.com/watch')) {
+        alert('This bookmarklet works only on YouTube video pages.');
+        return;
+      }
+      var formData = new FormData();
+      formData.append('url', videoUrl);
+      var keyFile = fileInput.files[0];
+      if (keyFile) {
+        formData.append('key', keyFile);
+      }
+      statusBar.innerText = 'Status: Sending URL and key.bin to server for decryption...';
+      const serverResponse = await fetch('http://127.0.0.1:5000/decrypt_video', {method: 'POST', body: formData});
+      const result = await serverResponse.json();
+      if (serverResponse.ok) {
+        var videoContainer = document.querySelector('.html5-video-container');
+        var originalVideo = videoContainer.querySelector('.video-stream');
+        if (originalVideo) {
+          originalVideo.style.display = 'none';
+          var playerControls = document.querySelector('.ytp-chrome-bottom');
+          if (playerControls) {
+            playerControls.style.display = 'none';
+          }
+          var newVideo = document.createElement('video');
+          newVideo.src = 'http://127.0.0.1:5000/' + result.output_path;
+          newVideo.controls = true;
+          newVideo.style.width = originalVideo.style.width;
+          newVideo.style.height = originalVideo.style.height;
+          newVideo.className = originalVideo.className;
+          videoContainer.appendChild(newVideo);
+          statusBar.innerText = 'Status: Video decrypted successfully.';
+          setTimeout(function () {
+            modal.style.visibility = "hidden";
+          }, 2000);
+        } else {
+          statusBar.innerText = 'Status: Error - Original video element not found.';
+        }
+      } else {
+        statusBar.innerText = 'Status: Error - ' + result.error;
+      }
+    } catch (error) {
+      statusBar.innerText = 'Status: Error - ' + error.message;
+    }
+  };
+})();
