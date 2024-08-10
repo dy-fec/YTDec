@@ -62,7 +62,7 @@ In this example the key that would be looked up would be under /cached/keys/myde
 <img width="1159" alt="Screenshot 2024-08-10 185846" src="https://github.com/user-attachments/assets/02f9e64c-bfbe-4ae2-a0fa-9204f490f890">
 
 # Why
-Today videos are scrapped by bots and used to train AIs without the permission of the user.
-Even without using an AES-key for extra encryption, the decryption takes alot of compute (so its pretty unlikely that they end up in AI-trainingdata).
-The "new"-Youtube is an toxic pile of censorship, media, hate and clickbait.
+Today videos are scrapped by bots and used to train AIs without the permission of the user.<br>
+Even without using an AES-key for extra encryption, the decryption takes alot of compute (so its pretty unlikely that they end up in AI-trainingdata).<br>
+The "new"-Youtube is an toxic pile of censorship, media, hate and clickbait.<br>
 With using an AES-key its pretty much a private video you can share.
