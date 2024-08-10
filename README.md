@@ -1,7 +1,7 @@
 # YTDec a fast video decryptor
-A tool for encryption and decryption of YT-Videos, inspired by [DvorakDwarf/Infinite-Storage-Glitch](https://github.com/DvorakDwarf/Infinite-Storage-Glitch).
-YTDec downloads, decrypts and replaces the video on Youtube, using an AES-key is optional.
-Currently the decryption is pretty fast, the encryption is a bit slow.
+A tool for encryption and decryption of YT-Videos, inspired by [DvorakDwarf/Infinite-Storage-Glitch](https://github.com/DvorakDwarf/Infinite-Storage-Glitch).<br>
+YTDec downloads, decrypts and replaces the video on Youtube, using an AES-key is optional.<br>
+Currently the decryption is pretty fast, the encryption is a bit slow.<br>
 
 
 # Features
@@ -13,7 +13,7 @@ Currently the decryption is pretty fast, the encryption is a bit slow.
     - shared key in description for ease of use
     - NO AI is trained on your voice or video
       
-# How-to
+# How-to<br>
 Git clone the repo
 ```
 git clone https://github.com/dy-fec/YTDec.git
@@ -38,23 +38,23 @@ The video cant be decrypted if you lose the key!
 python .\encrypt.py video.mp4 videoenc.mp4 --key_file new.bin
 ```
 
-The keyfile can be saved or provided to persons that are allowed to watch the video.
+The keyfile can be saved or provided to persons that are allowed to watch the video.<br>
 
-For ease of use the description can be used to specify a key that is in /cached/keys
+For ease of use: The description can be used to specify a key that is in /cached/keys
 
 <img width="638" alt="Screenshot 2024-08-10 190011" src="https://github.com/user-attachments/assets/2b270c59-e633-44d3-a5e6-ab742a10535e">
 
-The word before the : is extraced to allow channel wide encryption and decryption with providing only one key.
-Text after the : can be anything you want. Discord, Patreon etc.
-In this example the key that would be looked up would be under /cached/keys/mydescription.bin
+The word before the : is extraced to allow channel wide encryption and decryption with providing only one key.<br>
+Text after the : can be anything you want. Discord, Patreon etc.<br>
+In this example the key that would be looked up would be under /cached/keys/mydescription.bin<br>
 
 
 ## Decription
-1. Start the server with "start.bat"
-2. Create a bookmark with the URL containing the JS provided in this repo under "bookmark.txt"
+1. Start the server with "start.bat"<br>
+2. Create a bookmark with the URL containing the JS provided in this repo under "bookmark.txt"<br>
 ![Screenshot 2024-08-10 185641](https://github.com/user-attachments/assets/faada495-1430-44cb-919d-f4c38e4eed77)
-3. Open an encrypted video
-4. If needed you can provide an key
+3. Open an encrypted video<br>
+4. If needed you can provide an key<br>
    Each key is stored in /cached/keys/ with the yt-url for reuse
    If the description contains a keyname this key is searched for in  /cached/keys/
 ![Screenshot 2024-08-10 185721](https://github.com/user-attachments/assets/be01e8a5-157d-4a53-8c5d-d0112cab8d64)
